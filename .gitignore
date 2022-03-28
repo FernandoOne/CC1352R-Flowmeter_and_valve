@@ -1,0 +1,17 @@
+*
+
+!/application/
+!/application/**
+!/dmm/
+!/dmm/**
+!/drivers/
+!/drivers/**
+!/OAD/
+!/OAD/**
+!/sail/
+!/sail/**
+!/software_stacks/
+!/software_stacks/**
+!ble_oad_lpstk_release.cfg
+!dmm_154sensor_remote_display_oad_lpstk.syscfg
+!.gitignore
