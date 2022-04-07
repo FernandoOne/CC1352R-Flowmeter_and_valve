@@ -1581,7 +1581,7 @@ float getFlow(){
 
     GPIO_enableInt(InterruptPin); //habilito la interrupcion en el pin 29
 
-    frequency = getFrequency(); //obtengo la frecuencia de la señal del caudalimetro
+    frequency = getFrequency(); //obtengo la frecuencia de la seï¿½al del caudalimetro
 
     caudal = frequency*factorK;
 
@@ -1601,9 +1601,9 @@ static void readSensors(void)
 #ifdef LPSTK
     Lpstk_Accelerometer accel;
     humiditySensor.temp = (uint16_t)Lpstk_getTemperature();
-    humiditySensor.humidity = (uint16_t)Lpstk_getHumidity();
+    humiditySensor.humidity = (uint16_t)getFlow();
     hallEffectSensor.flux =Lpstk_getMagFlux();
-    lightSensor.rawData = (uint16_t)getFlow();;
+    lightSensor.rawData = (uint16_t)Lpstk_getLux();
     Lpstk_getAccelerometer(&accel);
     accelerometerSensor.xAxis = accel.x;
     accelerometerSensor.yAxis = accel.y;
