@@ -1619,7 +1619,7 @@ float getFlow(){
 
     GPIO_enableInt(InterruptPin); //habilito la interrupcion en el pin 29
 
-    frequency = getFrequency(); //obtengo la frecuencia de la se�al del caudalimetro
+    frequency = getFrequency(); //obtengo la frecuencia de la senal del caudalimetro
 
     caudal = frequency*factorK;
 
