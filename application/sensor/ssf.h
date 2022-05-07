@@ -414,6 +414,20 @@ extern int16_t Ssf_readTempSensor(void);
 extern bool Ssf_toggleLED(void);
 
 /*!
+ * @brief       The application calls this function to turn on an LED.
+ *
+ * @return      state of LED after this call: 0 is off, 1 is on
+ */
+extern bool Ssf_turnOnLED(void);
+
+/*!
+ * @brief       The application calls this function to turn off an LED.
+ *
+ * @return      state of LED after this call: 0 is off, 1 is on
+ */
+extern bool Ssf_turnOffLED(void);
+
+/*!
  * @brief       The application calls this function to switch on LED.
  */
 extern void Ssf_OnLED(void);

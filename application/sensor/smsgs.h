@@ -253,7 +253,11 @@ The <b>Sensor Ramp Data Message</b> is defined as:
     /* Device type request msg */
     Smsgs_cmdIds_DeviceTypeReq = 16,
     /* Device type response msg */
-    Smsgs_cmdIds_DeviceTypeRsp = 17
+    Smsgs_cmdIds_DeviceTypeRsp = 17,
+    /*Turn on LED message, sent from the collector to the sensor */
+    Smsgs_cmdIds_turnOnLedReq = 18,
+    /*Turn off LED message, sent from the collector to the sensor */
+    Smsgs_cmdIds_turnOffLedReq = 19,
 
  } Smsgs_cmdIds_t;
 

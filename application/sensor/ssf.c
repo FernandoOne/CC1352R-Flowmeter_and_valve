@@ -1755,6 +1755,38 @@ bool Ssf_toggleLED(void)
 }
 
 /*!
+ The application calls this function to turn on an LED.
+
+ Public function defined in ssf.h
+ */
+bool Ssf_turnOnLED(void)
+{
+    led1State = true;
+#ifndef POWER_MEAS
+    LED_stopBlinking(gRedLedHandle);
+    LED_setOn(gRedLedHandle, LED_BRIGHTNESS_MAX);
+#endif /* !POWER_MEAS */
+
+    return(led1State);
+}
+
+/*!
+ The application calls this function to turn off an LED.
+
+ Public function defined in ssf.h
+ */
+bool Ssf_turnOffLED(void)
+{
+    led1State = false;
+#ifndef POWER_MEAS
+    LED_stopBlinking(gRedLedHandle);
+    LED_setOff(gRedLedHandle);
+#endif /* !POWER_MEAS */
+
+    return(led1State);
+}
+
+/*!
  The application calls this function to switch on LED.
 
  Public function defined in ssf.h

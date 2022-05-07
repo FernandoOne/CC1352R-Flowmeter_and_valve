@@ -1279,6 +1279,44 @@ static void dataIndCB(ApiMac_mcpsDataInd_t *pDataInd)
                 }
                 break;
 
+            case Smsgs_cmdIds_turnOnLedReq:
+                /* Make sure the message is the correct size */
+                if(pDataInd->msdu.len == SMSGS_TOGGLE_LED_REQUEST_MSG_LEN)
+                {
+                    /* only send data if sensor is in the network */
+                    if ((Jdllc_getProvState() == Jdllc_states_joined) ||
+                            (Jdllc_getProvState() == Jdllc_states_rejoined))
+                    {
+                        /* send the response message directly */
+                        cmdBytes[0] = (uint8_t) Smsgs_cmdIds_toggleLedRsp;
+                        cmdBytes[1] = Ssf_turnOnLED();
+                        Sensor_sendMsg(Smsgs_cmdIds_toggleLedRsp,
+                            &pDataInd->srcAddr, true,
+                            SMSGS_TOGGLE_LED_RESPONSE_MSG_LEN,
+                            cmdBytes);
+                    }
+                }
+                break;
+
+            case Smsgs_cmdIds_turnOffLedReq:
+                /* Make sure the message is the correct size */
+                if(pDataInd->msdu.len == SMSGS_TOGGLE_LED_REQUEST_MSG_LEN)
+                {
+                    /* only send data if sensor is in the network */
+                    if ((Jdllc_getProvState() == Jdllc_states_joined) ||
+                            (Jdllc_getProvState() == Jdllc_states_rejoined))
+                    {
+                        /* send the response message directly */
+                        cmdBytes[0] = (uint8_t) Smsgs_cmdIds_toggleLedRsp;
+                        cmdBytes[1] = Ssf_turnOffLED();
+                        Sensor_sendMsg(Smsgs_cmdIds_toggleLedRsp,
+                            &pDataInd->srcAddr, true,
+                            SMSGS_TOGGLE_LED_RESPONSE_MSG_LEN,
+                            cmdBytes);
+                    }
+                }
+                break;
+
             case Smgs_cmdIds_broadcastCtrlMsg:
                 if(parentFound)
                 {
