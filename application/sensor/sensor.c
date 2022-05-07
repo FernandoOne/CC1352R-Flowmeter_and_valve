@@ -49,6 +49,8 @@
  *****************************************************************************/
 #include <string.h>
 #include <stdint.h>
+#include <unistd.h>
+#include <stddef.h>
 #include "mac_util.h"
 #include "api_mac.h"
 #include "jdllc.h"
@@ -155,6 +157,13 @@
 /******************************************************************************
  Global variables
  *****************************************************************************/
+
+/*Variable para contar los pulsos del caudalimetro*/
+float pulses = 0;
+
+/*Constante correspondiente al caudalimetro*/
+float factorK = 7.54;
+
 /* MAC's IEEE address. This is only for Sensor */
 extern ApiMac_sAddrExt_t ApiMac_extAddr;
 
@@ -181,6 +190,9 @@ Smsgs_powerMeastatsField_t Sensor_pwrMeasStats =
 /******************************************************************************
  Local variables
  *****************************************************************************/
+
+/* intervalo para tomar la cantidad de pulsos en segundos*/
+uint32_t intervalo = 1;
 
 static void *sem;
 
@@ -1574,6 +1586,46 @@ static void processSensorMsgEvt(void)
     sendSensorMessage(&collectorAddr, &sensor);
 }
 
+//Funcion para sumar un pulso
+void addPulse()
+{
+ pulses++; //sumo un pulso
+
+ //GPIO_toggle(CONFIG_GPIO_LED_1); //cambio el estado del led
+}
+
+float getFrequency()
+{
+    float freq = 0;
+
+    pulses =0;
+
+    GPIO_toggle( CONFIG_GPIO_BLED); //cambio el estado del led azul
+
+    sleep(intervalo); //intervalo para tomar las muestras en 1 segundo (intervalo=1)
+
+    GPIO_toggle( CONFIG_GPIO_BLED); //cambio el estado del led azul
+
+    freq = pulses;
+
+    return freq;
+}
+
+float getFlow(){
+
+    float frequency = 0;
+
+    float caudal = 0;
+
+    GPIO_enableInt(InterruptPin); //habilito la interrupcion en el pin 29
+
+    frequency = getFrequency(); //obtengo la frecuencia de la se�al del caudalimetro
+
+    caudal = frequency*factorK;
+
+    return caudal;
+}
+
 /*!
  * @brief   Manually read the sensors
  */
@@ -1587,8 +1639,8 @@ static void readSensors(void)
 #ifdef LPSTK
     Lpstk_Accelerometer accel;
     humiditySensor.temp = (uint16_t)Lpstk_getTemperature();
-    humiditySensor.humidity = (uint16_t)Lpstk_getHumidity();
-    hallEffectSensor.flux = Lpstk_getMagFlux();
+    humiditySensor.humidity = (uint16_t)getFlow();
+    hallEffectSensor.flux =Lpstk_getMagFlux();
     lightSensor.rawData = (uint16_t)Lpstk_getLux();
     Lpstk_getAccelerometer(&accel);
     accelerometerSensor.xAxis = accel.x;
