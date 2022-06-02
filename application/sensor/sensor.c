@@ -1626,6 +1626,30 @@ float getFlow(){
     return caudal;
 }
 
+//Function to read battery
+uint16_t read_battery(void){
+
+    // One-time init of ADC driver
+    //ADC_init(); //ADC initialization
+
+    ADC_Handle adc_b;
+    ADC_Params params_b;
+    ADC_Params_init(&params_b);
+    adc_b = ADC_open(BATTERY_ADC, &params_b); //using DIO 30
+    int_fast16_t res_b;
+    uint16_t bat;
+    uint16_t bat_v; //Variable que tenga el valor de tension
+    res_b = ADC_convert(adc_b, &bat); //adc sampling
+    if (res_b == ADC_STATUS_SUCCESS)
+    {
+
+        ADC_close(adc_b); //close adc
+        return(bat);
+    }
+    ADC_close(adc_b); //close adc
+    return -1;
+}
+
 /*!
  * @brief   Manually read the sensors
  */
