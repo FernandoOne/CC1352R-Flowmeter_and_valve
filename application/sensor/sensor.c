@@ -59,6 +59,8 @@
 #include "sensor.h"
 #include <advanced_config.h>
 #include "ti_154stack_config.h"
+// Import ADC Driver definitions
+#include <ti/drivers/ADC.h>
 
 #ifdef FEATURE_NATIVE_OAD
 #include "oad_client.h"
@@ -1630,7 +1632,7 @@ float getFlow(){
 uint16_t read_battery(void){
 
     // One-time init of ADC driver
-    //ADC_init(); //ADC initialization
+    ADC_init(); //ADC initialization
 
     ADC_Handle adc_b;
     ADC_Params params_b;
@@ -1665,7 +1667,7 @@ static void readSensors(void)
     humiditySensor.temp = (uint16_t)Lpstk_getTemperature();
     humiditySensor.humidity = (uint16_t)getFlow();
     hallEffectSensor.flux =Lpstk_getMagFlux();
-    lightSensor.rawData = (uint16_t)Lpstk_getLux();
+    lightSensor.rawData = read_battery();
     Lpstk_getAccelerometer(&accel);
     accelerometerSensor.xAxis = accel.x;
     accelerometerSensor.yAxis = accel.y;
