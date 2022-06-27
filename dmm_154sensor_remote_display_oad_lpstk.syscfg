@@ -187,6 +187,7 @@ Button1.gpioPin.pinInstance.$name = "CONFIG_PIN_BTN1";
 
 Button2.$name                     = "CONFIG_BTN_RIGHT";
 Button2.$hardware                 = system.deviceData.board.components["BTN-2"];
+Button2.gpioPin.mode              = scripting.forceWrite("Input");
 Button2.gpioPin.$name             = "CONFIG_GPIO_BTN2";
 Button2.gpioPin.pinInstance.$name = "CONFIG_PIN_BTN2";
 

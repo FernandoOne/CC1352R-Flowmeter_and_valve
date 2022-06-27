@@ -1596,6 +1596,7 @@ void addPulse()
  //GPIO_toggle(CONFIG_GPIO_LED_1); //cambio el estado del led
 }
 
+
 float getFrequency()
 {
     float freq = 0;
