@@ -187,7 +187,6 @@ Button1.gpioPin.pinInstance.$name = "CONFIG_PIN_BTN1";
 
 Button2.$name                     = "CONFIG_BTN_RIGHT";
 Button2.$hardware                 = system.deviceData.board.components["BTN-2"];
-Button2.gpioPin.mode              = scripting.forceWrite("Input");
 Button2.gpioPin.$name             = "CONFIG_GPIO_BTN2";
 Button2.gpioPin.pinInstance.$name = "CONFIG_PIN_BTN2";
 
@@ -221,6 +220,7 @@ ti154stack.lockProject                        = true;
 ti154stack.transmitPower                      = "14";
 ti154stack.phyType                            = "phy5kbps";
 ti154stack.mode                               = "frequencyHopping";
+ti154stack.reportingInterval                  = 30000;
 ti154stack.aesccmModule.$name                 = "CONFIG_AESCCM_0";
 ti154stack.ti154stackModule.$name             = "ti_ti154stack_ti154stack_config_mod0";
 ti154stack.radioConfig.codeExportConfig.$name = "ti_devices_radioconfig_code_export_param0";
