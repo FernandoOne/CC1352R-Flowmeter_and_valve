@@ -1629,25 +1629,60 @@ float getFlow(){
     return caudal;
 }
 
+// Function to convert ADC counts to Volts
+float counts_to_volts(uint16_t adc_counts){
+
+     float volts;
+
+     volts = 4.3 / 4096 * adc_counts;
+
+     return volts;
+
+}
+
+//Function to convert volts to battery
+uint16_t volts_to_battery (float volts){
+
+    float factor = 3.3/12; //factor que va de 12 a 3.3
+    float v_real; //variable que almacena el voltaje real
+    uint16_t percent; //variable con porcentaje de bateria
+    uint16_t m_batt = 25;
+    uint16_t b_batt = 200;
+
+    v_real = volts/factor;
+
+    percent = m_batt*v_real - b_batt;
+
+    return percent;
+
+
+}
+
 //Function to read battery
 uint16_t read_battery(void){
 
     // One-time init of ADC driver
-    ADC_init(); //ADC initialization
+    //ADC_init(); //ADC initialization
 
     ADC_Handle adc_b;
     ADC_Params params_b;
+    float volts;//Variable que tenga el valor de tension de la bateria
+    uint16_t bat; //variable con las cuentas de adc de leer la bateria
+    uint16_t bat_percent; //variable con el porcentaje de bateria
     ADC_Params_init(&params_b);
     adc_b = ADC_open(BATTERY_ADC, &params_b); //using DIO 30
     int_fast16_t res_b;
-    uint16_t bat;
-    uint16_t bat_v; //Variable que tenga el valor de tension
     res_b = ADC_convert(adc_b, &bat); //adc sampling
     if (res_b == ADC_STATUS_SUCCESS)
     {
+        volts = counts_to_volts(bat);
+        bat_percent = volts_to_battery(volts);
+        if(bat_percent > 100){
+            bat_percent = 100;
+        }
 
         ADC_close(adc_b); //close adc
-        return(bat);
+        return(bat_percent);
     }
     ADC_close(adc_b); //close adc
     return -1;
