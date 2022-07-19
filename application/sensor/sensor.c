@@ -1593,7 +1593,6 @@ void addPulse()
 {
  pulses++; //sumo un pulso
 
- //GPIO_toggle(CONFIG_GPIO_LED_1); //cambio el estado del led
 }
 
 
@@ -1658,11 +1657,8 @@ uint16_t volts_to_battery (float volts){
 
 }
 
-//Function to read battery
+//Funcion para leer la bateria
 uint16_t read_battery(void){
-
-    // One-time init of ADC driver
-    //ADC_init(); //ADC initialization
 
     ADC_Handle adc_b;
     ADC_Params params_b;
