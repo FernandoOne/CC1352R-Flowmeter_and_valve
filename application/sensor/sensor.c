@@ -133,7 +133,7 @@
 
 /* Reporting Interval Min and Max (in milliseconds) */
 #define MIN_REPORTING_INTERVAL 1000
-#define MAX_REPORTING_INTERVAL 360000
+#define MAX_REPORTING_INTERVAL 3600000
 
 /* Polling Interval Min and Max (in milliseconds) */
 #define MIN_POLLING_INTERVAL 1000
