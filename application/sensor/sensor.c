@@ -1595,7 +1595,7 @@ void addPulse()
 
 }
 
-
+//Funcion para obtener la frecuencia de la señal generada por el caudalimetro
 float getFrequency()
 {
     float freq = 0;
@@ -1613,6 +1613,7 @@ float getFrequency()
     return freq;
 }
 
+//Funcion para obtener el caudal
 float getFlow(){
 
     float frequency = 0;
@@ -1639,7 +1640,7 @@ float counts_to_volts(uint16_t adc_counts){
 
 }
 
-//Function to convert volts to battery
+//Funcion para convertir volts a porcentaje de bateria
 uint16_t volts_to_battery (float volts){
 
     float factor = 3.3/12; //factor que va de 12 a 3.3
